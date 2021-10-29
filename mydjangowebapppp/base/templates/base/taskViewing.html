@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block content %}
+
+<p>
+    {% if messages%}
+    {% for message in messages%}
+    <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+        {{message}}
+    </small>
+    {% endfor %}
+    {% endif %}
+</p>
+
+
+<fieldset disabled>
+
+    {% bootstrap_form form %}
+    <span>Date</span>
+    <input type="text" name="date" value="{{date}}" class="form-control" placeholder="Date" title="" required="" id="id_date">
+
+</fieldset>
+
+{% endblock %}

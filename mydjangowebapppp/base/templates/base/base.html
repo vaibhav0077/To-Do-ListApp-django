@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+
+</head>
+
+<body>
+    <style>
+        .error {
+            color: red;
+            font-size: large;
+        }
+
+        .success {
+            color: green;
+            font-size: large;
+        }
+    </style>
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col-md-1 col-md-push-11" style="padding: 0px;">
+                <div class="pos-f-t">
+                    <nav class="navbar navbar-dark bg-dark">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </nav>
+                    <div class="collapse" id="navbarToggleExternalContent">
+            
+            
+    
+                        
+                        {% if request.user.is_authenticated %}
+                        <div class="bg-dark p-1 m-0 text-truncate">
+                            <a href='/home' class="text-white">Home
+                        </div>
+                        <div class="bg-dark p-1 m-0 text-truncate">
+                            <a href='/profile' class="text-white">Profile
+                        </div>
+                        <div class="bg-dark p-1 m-0 text-truncate">
+                            <a href='/logout' class="text-white">LogOut
+                        </div>
+                        
+
+                        {%else%}
+                        <div class="bg-dark p-1 m-0 text-truncate">
+                            <a href='/login' class="text-white">LogIn
+                        </div>
+                       <div class="bg-dark p-1 m-0 text-truncate">
+                            <a href='/signup' class="text-white">SignUp
+                        </div>
+                        {%endif%}
+                    </div>
+
+                    <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+                        <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+                        <a href="#" class="w3-bar-item w3-button">Link 1</a>
+                        <a href="#" class="w3-bar-item w3-button">Link 2</a>
+                        <a href="#" class="w3-bar-item w3-button">Link 3</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-11 col-md-push-1" style="padding: 0px;">
+                <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+
+
+                    {% if request.user.is_authenticated %}
+                    <a class="navbar-brand" href="/profile">Hello, {{request.user.username}}</a>
+                    {%else%}
+                    <a class="navbar-brand" href="/login">Welcome User</a>
+                    {%endif%}
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
+                            <!-- ml-auto for right
+                    mx-auto center -->
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">LogOut</a>
+                            </li>
+                            {%else%}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup">Sign Up</a>
+                            </li>
+                            {%endif%}
+
+                            <!-- <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Disabled</a>
+                    </li> -->
+                        </ul>
+                        <form method="get" action="/search" class="form-inline my-2 my-lg-0" >
+                            <input class="form-control mr-sm-2" type="search" name="query" id='search' placeholder="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+                        </form>
+                    </div>
+
+                </nav>
+                <div>
+                    {% block content %}
+
+
+                    {% endblock %}
+                    <!-- To DO Tasks -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

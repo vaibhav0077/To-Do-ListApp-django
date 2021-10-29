@@ -1,0 +1,76 @@
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% load static %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signUp</title>
+    <style>
+        .success {
+            color: red;
+        }
+
+        .bgded {
+            background-image: url("{% static 'img/b.jpg' %}");
+        }
+    </style>
+</head>
+
+<body class="bgded">
+    
+    <div class="container" >
+        <div class="login">
+            <div class="row">
+                <h2 style="background-color: rgb(243, 234, 236); padding:25px">Sign Up</h2><br>
+
+                <div class='msggg' style="color:azure; font-size:50px">
+                    {% if messages%}
+                    {% for message in messages%}
+                    <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+                        {{message}}
+                    </small>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col-md-12">
+                    <form action="" method="POST" novalidate class="form" style="background-color: rgb(243, 234, 236); padding:50px">
+                        {% csrf_token %}
+                        
+                        {% for fm in form %}
+
+                        {{fm.label_tag}}<br> {{fm}} {{fm.errors|striptags}} <br>
+
+                        {% endfor %}
+                        <br>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <input type="submit" id="register" value="Signup"
+                                    class="btn btn-outline-success btn-form">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <input type="reset" id="reset" value="Reset" class="btn btn-outline-primary btn-form">
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>

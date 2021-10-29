@@ -1,0 +1,71 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signUp</title>
+    <style>
+        .success,
+        .error {
+            color: red;
+        }
+    </style>
+</head >
+
+<body>
+    <div class="container">
+        <div class="login">
+            <div class="row">
+                <h2>Sign In</h2>
+                <div class="col-md-12">
+                    <form action="" method="POST" class="form" novalidate>
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% for fm in form %}
+                        {% endfor %}
+
+                        {% if messages%}
+                        {% for message in messages%}
+                        <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+                            {{message}}
+                        </small>
+                        {% endfor %}
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="reset" id="reset" value="Reset" class="btn btn-outline-primary btn-form">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" id="register" value="Sign In"
+                                    class="btn btn-outline-success btn-form">
+                            </div>
+                            <div class="col-md-6">
+                                <a href="/signup">Need Account?</a>
+                            </div>
+
+                            <div class="col-md-6">
+                                <a href="/forget">Forget Password?</a>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+
+</html>

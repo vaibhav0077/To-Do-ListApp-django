@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+{% load django_tables2 %}
+{% block content %}
+<style>
+    .msggg,
+    .error {
+        color: red;
+        font-size: large;
+    }
+
+    .success {
+        color: green;
+        font-size: large;
+    }
+
+</style>
+
+<div class='msggg' >
+    {% if messages%}
+    {% for message in messages%}
+    <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+        {{message}}
+    </small>
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container pt-4"  style="margin:0;">
+    <div class="row p-0 mt-4">
+        <div class="col-lg-4 mrx-auto shadow-lg p-0">
+            <div class="alert alert-info">
+                <h2>Add new TODO</h2>
+            </div>
+            <div class="p-4" style="margin: 0%;  background-color:rgb(233, 233, 233);" >
+                <form action="/add-todo/" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+
+                    <hr>
+                    <input type="submit" value="ADD" class="btn btn-info">
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <div style="margin: 10px; background-color:rgb(233, 233, 233); width:140%">
+
+                {%if totos|length != 0 %}
+
+                {% render_table table %}
+
+                {%else%}
+                <p class='display-4' style="margin: 0%;  background-color:rgb(233, 233, 233);">No Task present, Enjoy The Life !!!!
+                <p>
+                    {%endif%}
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

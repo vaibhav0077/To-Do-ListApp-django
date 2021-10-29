@@ -1,0 +1,75 @@
+{% extends "base/base.html" %}
+{% block content %}
+<style>
+  .msggg, .error {
+    color: red;
+    font-size: large;
+  }
+
+  .success {
+    color: green;
+    font-size: large;
+  }
+</style>
+
+<div class='msggg'>
+  {% if messages%}
+  {% for message in messages%}
+  <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+    {{message}}
+  </small>
+  {% endfor %}
+  {% endif %}
+</div>
+<div class="container pt-4">
+  <div class="row p-0 mt-4">
+    
+    <div class="col">
+      <div class="border">
+        {%if view_todos|length != 0 %}
+        <table class="table">
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Action</th>
+            <th> Edit</th>
+          </tr>
+          {% for t in view_todos%}
+          <tr>
+            <td>{{forloop.counter}}</td>
+
+            {% if t.status == 'C' %}
+            <td><del><a href="/view_todo/{{t.id}}" title="Edit Task" style="color: rgb(31, 129, 6);">{{t.title}}</a></del></td>
+            {% else %}
+            <td><b><a href="/view_todo/{{t.id}}" title="Edit Task" style="color: red;">{{t.title}}</a></b></td>
+            {%endif%}
+
+            <td>{{t.status}}</td>
+            <td>{{t.priority}}</td>
+            <td><a href="/delete_todo/{{t.id}}" title="delete" class="btn btn-danger">🗑️</a>
+              {% if t.status == 'P' %}
+              <a href="/change_status/{{t.id}}/C" title="Mark Completed" class="btn btn-info">☑️</a>
+              {% else %}
+              <a href="/change_status/{{t.id}}/P" title="Mark Pending" class="btn btn-info">🕣</a>
+              {% endif %}
+            </td>
+            <td><a href="/edit_task/{{t.id}}" title="Edit Task" class="btn btn-info">✍</a></td>
+          </tr>
+          {% endfor %}
+          </tr>
+        </table>
+        {%else%}
+        <p class='display-4'>No Task present with name <span style="color: royalblue; font-size:80px;">{{query}}</span> !!
+        <p>
+          {%endif%}
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}

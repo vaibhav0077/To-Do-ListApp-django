@@ -1,0 +1,92 @@
+{% extends "base/base.html" %}
+{% block content %}
+<style>
+  .msggg, .error {
+    color: red;
+    font-size: large;
+  }
+
+  .success {
+    color: green;
+    font-size: large;
+  }
+</style>
+
+<div class='msggg'>
+  {% if messages%}
+  {% for message in messages%}
+  <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+    {{message}}
+  </small>
+  {% endfor %}
+  {% endif %}
+</div>
+<div class="container pt-4">
+  <div class="row p-0 mt-4">
+    <div class="col-lg-4 mrx-auto shadow-lg p-0">
+      <div class="alert alert-info">
+        <h2>Add new TODO</h2>
+      </div>
+      <div class="p-4">
+        <form action="/add-todo/" method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+
+          <hr>
+          <input type="submit" value="ADD" class="btn btn-info">
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div class="border">
+        {%if totos|length != 0 %}
+        <table class="table">
+          <tr>
+            <th>#</th>
+
+            <th>Title <a href='/title/as' title="Ascending Order">🔼</a> <a href='/title/ds'  title="Descending Order">🔽</a></th>
+            <th>Status <a href='/status/as' title="Ascending Order">🔼</a> <a href='/status/ds'  title="Descending Order">🔽</a></th></th>
+            <th>Priority <a href='/priority/as' title="Ascending Order">🔼</a> <a href='/priority/ds'  title="Descending Order">🔽</a></th></th></th>
+            <th>Action</th>
+            <th> Edit</th>
+          </tr>
+          {% for t in totos%}
+          <tr>
+            <td>{{forloop.counter}}</td>
+
+            {% if t.status == 'C' %}
+            <td><del><a href="/view_todo/{{t.id}}" title="Edit Task" style="color: rgb(31, 129, 6);">{{t.title}}</a></del></td>
+            {% else %}
+            <td><b><a href="/view_todo/{{t.id}}" title="Edit Task" style="color: red;">{{t.title}}</a></b></td>
+            {%endif%}
+
+            <td>{{t.status}}</td>
+            <td>{{t.priority}}</td>
+            
+            <td><a href="/delete_todo/{{t.id}}" title="delete" class="btn btn-danger">🗑️</a>
+              {% if t.status == 'P' %}
+              <a href="/change_status/{{t.id}}/C" title="Mark Completed" class="btn btn-info">☑️</a>
+              {% else %}
+              <a href="/change_status/{{t.id}}/P" title="Mark Pending" class="btn btn-info">🕣</a>
+              {% endif %}
+            </td>
+            <td><a href="/edit_task/{{t.id}}" title="Edit Task" class="btn btn-info">✍</a></td>
+          </tr>
+          {% endfor %}
+          </tr>
+
+
+        </table>
+        {%else%}
+        <p class='display-4'>No Task present, Enjoy The Life !!!!
+        <p>
+          {%endif%}
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}

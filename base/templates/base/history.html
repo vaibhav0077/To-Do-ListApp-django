@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load django_tables2 %}
+{% block content %}
+<style>
+  .msggg,
+  .error {
+    color: red;
+    font-size: large;
+  }
+
+  .success {
+    color: green;
+    font-size: large;
+  }
+</style>
+
+<div class='msggg'>
+  {% if messages%}
+  {% for message in messages%}
+  <small {% if message.tags %} class="{{message.tags}}" {% endif%}>
+    {{message}}
+  </small>
+  {% endfor %}
+  {% endif %}
+</div>
+<div class="container pt-4" style="background-color: rgb(235, 175, 185); padding:35px">
+  <div class="row p-0 mt-4">
+    <!-- <div class="col-lg-4 mrx-auto shadow-lg p-0">
+      <div class="alert alert-info">
+        <h2>Add new TODO</h2>
+      </div>
+      <div class="p-4">
+        
+
+
+      </div>
+    </div> -->
+    <div class="col">
+      <div class="border">
+        {%if totos|length != 0 %}
+
+        {% render_table table %}
+
+        {%else%}
+        <p class='display-4'>No Completed Task present,Complete Your Task !!!!
+        <p>
+          {%endif%}
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}
